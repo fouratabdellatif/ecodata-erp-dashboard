@@ -1,8 +1,11 @@
 import Product from "../models/Product.js";
+import Produit from "../models/Produit.js";
+import Customer from "../models/Customer.js";
 import ProductStat from "../models/ProductStat.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import getCountryIso3 from "country-iso-2-to-3";
+import FactTable from "../models/FactTable.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -26,9 +29,25 @@ export const getProducts = async (req, res) => {
   }
 };
 
+export const getProduits = async (req, res) => {
+  try {
+    const products = await Produit.find()
+      .populate('category',
+        { _id: 1, index: 1, category: 1 }
+      )
+      .exec();
+
+    // console.log(products);
+
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 export const getCustomers = async (req, res) => {
   try {
-    const customers = await User.find({ role: "user" }).select("-password");
+    const customers = await Customer.find();
     // console.log(customers);
     res.status(200).json(customers);
   } catch (error) {
@@ -70,6 +89,53 @@ export const getTransactions = async (req, res) => {
       transactions,
       total,
     });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getPurchases = async (req, res) => {
+  try {
+    const fact_table = await FactTable.find()
+      .populate('statut',
+        { _id: 1, index: 1, Status: 1 }
+      )
+      .populate('produit',
+        {
+          _id: 1, index: 1,
+          SKU_Code: 1,
+          Design_No: 1,
+          Stock: 1,
+          id_Category: 1,
+          Size: 1,
+          Color: 1
+        }
+      )
+      .populate('fullfillement',
+        { _id: 1, index: 1, Fulfilment: 1 }
+      )
+      .populate('date',
+        {
+          _id: 1,
+          index: 1,
+          Year: 1,
+          Quarter: 1,
+          Month: 1,
+          Day: 1,
+          Trimester: 1
+        }
+      )
+      .populate('customer',
+        { _id: 1, index: 1, Customer: 1 }
+      )
+      .populate('city',
+        { _id: 1, id: 1, Ship_City: 1 }
+      )
+      .exec();
+
+    // console.log(products);
+
+    res.status(200).json(fact_table);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

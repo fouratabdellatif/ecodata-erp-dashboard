@@ -7,22 +7,23 @@ import {
   Collapse,
   Button,
   Typography,
-  Rating,
+  // Rating,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
 import Header from "components/Header";
-import { useGetProductsQuery } from "state/api";
+import { useGetProduitsQuery } from "state/api";
 
 const Product = ({
   _id,
-  name,
-  description,
-  price,
-  rating,
+  index,
+  SKU_Code,
+  Design_No,
+  Stock,
+  id_Category,
   category,
-  supply,
-  stat,
+  Size,
+  Color
 }) => {
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -41,17 +42,15 @@ const Product = ({
           color={theme.palette.secondary[300]}
           gutterBottom
         >
-          {category}
+          {category.category}
         </Typography>
         <Typography variant="h5" component="div">
-          {name}
+          {SKU_Code}
         </Typography>
-        <Typography sx={{ mb: "1.5rem" }} color={theme.palette.secondary[400]}>
-          ${Number(price).toFixed(2)}
-        </Typography>
-        <Rating value={rating} readOnly />
+        {/* <Rating value={rating} readOnly /> */}
 
-        <Typography variant="body2">{description}</Typography>
+        <Typography variant="body2">{Size}</Typography>
+        <Typography variant="body2">{Color}</Typography>
       </CardContent>
       <CardActions>
         <Button
@@ -71,14 +70,15 @@ const Product = ({
         }}
       >
         <CardContent>
-          <Typography>id: {_id}</Typography>
-          <Typography>Supply Left: {supply}</Typography>
-          <Typography>
+          {/* <Typography>id: {_id}</Typography> */}
+          <Typography>Stock: {Stock}</Typography>
+          <Typography>Design_No: {Design_No}</Typography>
+          {/* <Typography>
             Yearly Sales This Year: {stat.yearlySalesTotal}
           </Typography>
           <Typography>
             Yearly Units Sold This Year: {stat.yearlyTotalSoldUnits}
-          </Typography>
+          </Typography> */}
         </CardContent>
       </Collapse>
     </Card>
@@ -86,7 +86,7 @@ const Product = ({
 };
 
 const Products = () => {
-  const { data, isLoading } = useGetProductsQuery();
+  const { data, isLoading } = useGetProduitsQuery();
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
 
   return (
@@ -107,24 +107,26 @@ const Products = () => {
           {data?.map(
             ({
               _id,
-              name,
-              description,
-              price,
-              rating,
+              index,
+              SKU_Code,
+              Design_No,
+              Stock,
+              id_Category,
               category,
-              supply,
-              stat,
+              Size,
+              Color
             }) => (
               <Product
                 key={_id}
                 _id={_id}
-                name={name}
-                description={description}
-                price={price}
-                rating={rating}
+                index={index}
+                SKU_Code={SKU_Code}
+                Design_No={Design_No}
+                Stock={Stock}
+                id_Category={id_Category}
                 category={category}
-                supply={supply}
-                stat={stat}
+                Size={Size}
+                Color={Color}
               />
             )
           )}

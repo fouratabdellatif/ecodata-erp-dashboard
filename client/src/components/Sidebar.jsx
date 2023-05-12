@@ -27,6 +27,7 @@ import {
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
   PieChartOutlined,
+  Assessment
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -38,6 +39,10 @@ const navItems = [
   {
     text: "Dashboard",
     icon: <HomeOutlined />,
+  },
+  {
+    text: "Power BI Report",
+    icon: <Assessment />,
   },
   {
     text: "Client Facing",
@@ -52,7 +57,7 @@ const navItems = [
     icon: <Groups2Outlined />,
   },
   {
-    text: "Transactions",
+    text: "Purchases",
     icon: <ReceiptLongOutlined />,
   },
   {
@@ -154,7 +159,7 @@ const Sidebar = ({
                     </Typography>
                   );
                 }
-                const lcText = text.toLowerCase();
+                const lcText = text === "Power BI Report" ? "power-bi-report" : text.toLowerCase();
 
                 return (
                   <ListItem key={text} disablePadding>
