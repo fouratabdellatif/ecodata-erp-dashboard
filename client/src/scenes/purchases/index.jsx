@@ -48,6 +48,11 @@ const Purchases = () => {
       flex: 1,
     },
     {
+      field: "customer",
+      headerName: "Customer",
+      flex: 1,
+    },
+    {
       field: "moving_avg",
       headerName: "moving_avg",
       flex: 1,
@@ -100,12 +105,12 @@ const Purchases = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading || !data?.fact_table}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={data?.fact_table || []}
           columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5, 10, 20]}
+          pageSize={50}
+          rowsPerPageOptions={[50, 100, 500]}
         />
         {() => console.log(data)}
       </Box>

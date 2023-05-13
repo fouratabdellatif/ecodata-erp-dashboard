@@ -6,6 +6,7 @@ import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import getCountryIso3 from "country-iso-2-to-3";
 import FactTable from "../models/FactTable.js";
+import Kpi from "../models/Kpi.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -50,6 +51,16 @@ export const getCustomers = async (req, res) => {
     const customers = await Customer.find();
     // console.log(customers);
     res.status(200).json(customers);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getKpis = async (req, res) => {
+  try {
+    const kpis = await Kpi.find();
+    // console.log(customers);
+    res.status(200).json(kpis);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -133,9 +144,23 @@ export const getPurchases = async (req, res) => {
       )
       .exec();
 
+    // // Calculate the sums of actual_price and discounted_price
+    // const actualPriceSum = fact_table.reduce((acc, purchase) => acc + purchase.actual_price, 0);
+    // const discountedPriceSum = fact_table.reduce((acc, purchase) => acc + purchase.discounted_price, 0);
+
+    // // Calculate the total and send it in the response
+    // const salesAmount = actualPriceSum - discountedPriceSum;
+    // const expensesAmount = fact_table.reduce((acc, purchase) => acc + purchase.GrossAmount, 0);
+    // const profitAmount = salesAmount - expensesAmount;
+
     // console.log(products);
 
-    res.status(200).json(fact_table);
+    res.status(200).json({
+      fact_table: fact_table,
+      // salesAmount: salesAmount,
+      // expensesAmount: expensesAmount,
+      // profitAmount: profitAmount
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

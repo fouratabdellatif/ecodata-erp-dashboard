@@ -36,10 +36,6 @@ const FactTableSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Date"
     },
-    customer: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Customer"
-    },
     city: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "City"

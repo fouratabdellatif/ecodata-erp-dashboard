@@ -43,6 +43,8 @@ import { dataCity } from "./data/city.js";
 import City from "./models/City.js";
 import FactTable from "./models/FactTable.js";
 import { dataFactTable } from "./data/fact_table.js";
+import Kpi from "./models/Kpi.js";
+import { dataKPI } from "./data/kpi.js";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -90,6 +92,7 @@ mongoose
     // seedProducts();
     // seedCities();
     // seedFactTable();
+    // Kpi.insertMany(dataKPI);
 
   })
   .catch((error) => console.log(`${error} did not connect`));
@@ -155,13 +158,11 @@ async function seedFactTable() {
     const produitMap = new Map();
     const fullfilmentMap = new Map();
     const dateMap = new Map();
-    const customerMap = new Map();
     const cityMap = new Map();
     const status = await Status.find();
     const produits = await Produit.find();
     const fullfilments = await Fulfilment.find();
     const dates = await Date.find();
-    const customers = await Customer.find();
     const cities = await City.find();
 
     status.forEach((statut) => {
@@ -180,10 +181,6 @@ async function seedFactTable() {
       dateMap.set(date.index, date);
     });
 
-    customers.forEach((customer) => {
-      customerMap.set(customer.index, customer);
-    });
-
     cities.forEach((city) => {
       cityMap.set(city.id, city);
     });
@@ -194,7 +191,6 @@ async function seedFactTable() {
       const produit = produitMap.get(factTable.id_produit);
       const fullfilment = fullfilmentMap.get(factTable.id_fullfillement);
       const date = dateMap.get(factTable.id_date);
-      const customer = customerMap.get(factTable.id_Customer);
       const city = cityMap.get(factTable.id_city);
       return {
         ...factTable,
@@ -202,7 +198,6 @@ async function seedFactTable() {
         produit: produit,
         fullfilment: fullfilment,
         date: date,
-        customer: customer,
         city: city
       };
     });

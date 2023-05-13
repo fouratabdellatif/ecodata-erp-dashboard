@@ -1,28 +1,38 @@
 import React from "react";
 import { ResponsivePie } from "@nivo/pie";
-import { Box, Typography, useTheme } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
+import { Box, useTheme } from "@mui/material";
+import { useGetKpisQuery } from "state/api";
 
 const BreakdownChart = ({ isDashboard = false }) => {
-  const { data, isLoading } = useGetSalesQuery();
+  const { data, isLoading } = useGetKpisQuery();
   const theme = useTheme();
 
   if (!data || isLoading) return "Loading...";
 
-  const colors = [
-    theme.palette.secondary[500],
-    theme.palette.secondary[300],
-    theme.palette.secondary[300],
-    theme.palette.secondary[500],
-  ];
-  const formattedData = Object.entries(data.salesByCategory).map(
+  let salesAvg;
+  if (data) salesAvg = data[0]?.salesAvgByFullfilment;
+  // console.log(salesAvg);
+
+  const colors = [theme.palette.secondary[500], theme.palette.secondary[300]];
+  const formattedData = Object.entries(data[0]?.salesAvgByFullfilment).map(
     ([category, sales], i) => ({
       id: category,
       label: category,
       value: sales,
-      color: colors[i],
+      color: colors[i]
     })
   );
+
+  let sum = 0;
+  for (let key in salesAvg) {
+    if (salesAvg.hasOwnProperty(key)) {
+      sum += parseFloat(salesAvg[key]);
+    }
+  }
+
+  console.log("valuesArray", sum);
+  const valueFormatter = (value) =>
+    `${value} (${((value / sum) * 100).toFixed(0)}%)`;
 
   return (
     <Box
@@ -34,38 +44,39 @@ const BreakdownChart = ({ isDashboard = false }) => {
     >
       <ResponsivePie
         data={formattedData}
+        valueFormat={valueFormatter}
         theme={{
           axis: {
             domain: {
               line: {
-                stroke: theme.palette.secondary[200],
-              },
+                stroke: theme.palette.secondary[200]
+              }
             },
             legend: {
               text: {
-                fill: theme.palette.secondary[200],
-              },
+                fill: theme.palette.secondary[200]
+              }
             },
             ticks: {
               line: {
                 stroke: theme.palette.secondary[200],
-                strokeWidth: 1,
+                strokeWidth: 1
               },
               text: {
-                fill: theme.palette.secondary[200],
-              },
-            },
+                fill: theme.palette.secondary[200]
+              }
+            }
           },
           legends: {
             text: {
-              fill: theme.palette.secondary[200],
-            },
+              fill: theme.palette.secondary[200]
+            }
           },
           tooltip: {
             container: {
-              color: theme.palette.primary.main,
-            },
-          },
+              color: theme.palette.primary.main
+            }
+          }
         }}
         colors={{ datum: "data.color" }}
         margin={
@@ -79,16 +90,17 @@ const BreakdownChart = ({ isDashboard = false }) => {
         borderWidth={1}
         borderColor={{
           from: "color",
-          modifiers: [["darker", 0.2]],
+          modifiers: [["darker", 0.2]]
         }}
         enableArcLinkLabels={!isDashboard}
+        enableRadialLabels={true}
         arcLinkLabelsTextColor={theme.palette.secondary[200]}
         arcLinkLabelsThickness={2}
         arcLinkLabelsColor={{ from: "color" }}
         arcLabelsSkipAngle={10}
         arcLabelsTextColor={{
           from: "color",
-          modifiers: [["darker", 2]],
+          modifiers: [["darker", 2]]
         }}
         legends={[
           {
@@ -109,14 +121,14 @@ const BreakdownChart = ({ isDashboard = false }) => {
               {
                 on: "hover",
                 style: {
-                  itemTextColor: theme.palette.primary[500],
-                },
-              },
-            ],
-          },
+                  itemTextColor: theme.palette.primary[500]
+                }
+              }
+            ]
+          }
         ]}
       />
-      <Box
+      {/* <Box
         position="absolute"
         top="50%"
         left="50%"
@@ -126,13 +138,13 @@ const BreakdownChart = ({ isDashboard = false }) => {
         sx={{
           transform: isDashboard
             ? "translate(-75%, -170%)"
-            : "translate(-50%, -100%)",
+            : "translate(-50%, -100%)"
         }}
       >
         <Typography variant="h6">
-          {!isDashboard && "Total:"} ${data.yearlySalesTotal}
+          {!isDashboard && "Total:"} ${data.totalSales}
         </Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 };

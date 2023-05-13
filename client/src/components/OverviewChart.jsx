@@ -1,54 +1,44 @@
 import React, { useMemo } from "react";
 import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
-import { useGetSalesQuery } from "state/api";
+import { useGetKpisQuery } from "state/api";
 
-const OverviewChart = ({ isDashboard = false, view }) => {
+const OverviewChart = ({ isDashboard = false }) => {
   const theme = useTheme();
-  const { data, isLoading } = useGetSalesQuery();
+  const { data, isLoading } = useGetKpisQuery();
 
-  const [totalSalesLine, totalUnitsLine] = useMemo(() => {
+  const [totalProfitLine] = useMemo(() => {
     if (!data) return [];
 
-    const { monthlyData } = data;
-    const totalSalesLine = {
-      id: "totalSales",
+    const monthlyData = data[0]?.monthlyData;
+    const totalProfitLine = {
+      id: "totalProfit",
       color: theme.palette.secondary.main,
-      data: [],
-    };
-    const totalUnitsLine = {
-      id: "totalUnits",
-      color: theme.palette.secondary[600],
       data: [],
     };
 
     Object.values(monthlyData).reduce(
-      (acc, { month, totalSales, totalUnits }) => {
-        const curSales = acc.sales + totalSales;
-        const curUnits = acc.units + totalUnits;
+      (acc, { month, totalProfit }) => {
+        const curProfit = totalProfit;
 
-        totalSalesLine.data = [
-          ...totalSalesLine.data,
-          { x: month, y: curSales },
-        ];
-        totalUnitsLine.data = [
-          ...totalUnitsLine.data,
-          { x: month, y: curUnits },
+        totalProfitLine.data = [
+          ...totalProfitLine.data,
+          { x: month, y: curProfit },
         ];
 
-        return { sales: curSales, units: curUnits };
+        return { sales: curProfit };
       },
-      { sales: 0, units: 0 }
+      { sales: 0 }
     );
 
-    return [[totalSalesLine], [totalUnitsLine]];
+    return [[totalProfitLine]];
   }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!data || isLoading) return "Loading...";
 
   return (
     <ResponsiveLine
-      data={view === "sales" ? totalSalesLine : totalUnitsLine}
+      data={totalProfitLine}
       theme={{
         axis: {
           domain: {
@@ -117,7 +107,7 @@ const OverviewChart = ({ isDashboard = false, view }) => {
         tickRotation: 0,
         legend: isDashboard
           ? ""
-          : `Total ${view === "sales" ? "Revenue" : "Units"} for Year`,
+          : `Total ${"Revenue"}`,
         legendOffset: -60,
         legendPosition: "middle",
       }}
