@@ -12,6 +12,7 @@ const CitySchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "State"
     },
+    country: { type: String }
   },
   { timestamps: true }
 );

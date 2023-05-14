@@ -6,7 +6,8 @@ import {
   getGeography,
   getProduits,
   getPurchases,
-  getKpis
+  getKpis,
+  getCitiesGeo
 } from "../controllers/client.js";
 
 const router = express.Router();
@@ -18,5 +19,6 @@ router.get("/kpis", getKpis);
 router.get("/transactions", getTransactions);
 router.get("/purchases", getPurchases);
 router.get("/geography", getGeography);
+router.get("/citiesgeo", getCitiesGeo);
 
 export default router;

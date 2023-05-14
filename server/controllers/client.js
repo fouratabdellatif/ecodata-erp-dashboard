@@ -7,6 +7,8 @@ import Transaction from "../models/Transaction.js";
 import getCountryIso3 from "country-iso-2-to-3";
 import FactTable from "../models/FactTable.js";
 import Kpi from "../models/Kpi.js";
+import City from "../models/City.js";
+import { geoData } from "../data/geoData.js";
 
 export const getProducts = async (req, res) => {
   try {
@@ -184,6 +186,27 @@ export const getGeography = async (req, res) => {
         return { id: country, value: count };
       }
     );
+    // console.log(formattedLocations);
+
+    res.status(200).json(formattedLocations);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getCitiesGeo = async (req, res) => {
+  try {
+    // const cities = await City.find();
+
+    const mappedLocations = geoData.features;
+
+    const formattedLocations = Object.entries(mappedLocations).map(
+      ([type, features]) => {
+        return { id: features.id, value: features.properties.purchases };
+      }
+    );
+
+    console.log(formattedLocations);
 
     res.status(200).json(formattedLocations);
   } catch (error) {

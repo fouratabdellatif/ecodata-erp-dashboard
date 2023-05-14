@@ -34,7 +34,7 @@ const Dashboard = () => {
   let totalExpenses;
   let totalProfit;
 
-  if(!kpiData.isLoading) {
+  if (!kpiData.isLoading) {
     totalCustomers = kpiData?.data[0]?.totalCustomers;
     totalSales = kpiData?.data[0]?.totalSales;
     totalExpenses = kpiData?.data[0]?.totalExpenses;
@@ -132,10 +132,13 @@ const Dashboard = () => {
           gridColumn="span 8"
           gridRow="span 2"
           backgroundColor={theme.palette.background.alt}
-          p="1rem"
+          p="2rem"
           borderRadius="0.55rem"
         >
-          <OverviewChart view="sales" isDashboard={true} />
+          <Header
+            subtitle="Overview of Total Profit By Month"
+          />
+          <OverviewChart isDashboard={true} />
         </Box>
         <StatBox
           title="Total Expenses"

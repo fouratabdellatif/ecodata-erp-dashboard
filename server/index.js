@@ -93,6 +93,13 @@ mongoose
     // seedCities();
     // seedFactTable();
     // Kpi.insertMany(dataKPI);
+  //   City.updateMany({}, { $set: { country: 'IN' }})
+  // .then((result) => {
+  //   console.log(`${result.nModified} cities updated`);
+  // })
+  // .catch((error) => {
+  //   console.error(error);
+  // });
 
   })
   .catch((error) => console.log(`${error} did not connect`));
