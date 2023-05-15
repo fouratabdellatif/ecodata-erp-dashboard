@@ -30,7 +30,7 @@ const BreakdownChart = ({ isDashboard = false }) => {
     }
   }
 
-  console.log("valuesArray", sum);
+  // console.log("valuesArray", sum);
   const valueFormatter = (value) =>
     `${value} (${((value / sum) * 100).toFixed(0)}%)`;
 

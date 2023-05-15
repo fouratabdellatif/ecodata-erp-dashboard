@@ -9,7 +9,7 @@ const Purchases = () => {
 
   // values to be sent to the backend
   const { data, isLoading } = useGetPurchasesQuery();
-  console.log(data);
+  // console.log(data);
 
   const columns = [
     {
@@ -112,7 +112,6 @@ const Purchases = () => {
           pageSize={50}
           rowsPerPageOptions={[50, 100, 500]}
         />
-        {() => console.log(data)}
       </Box>
     </Box>
   );

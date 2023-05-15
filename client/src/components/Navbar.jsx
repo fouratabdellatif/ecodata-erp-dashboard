@@ -23,6 +23,7 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+import { logout } from "actions/auth";
 
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const dispatch = useDispatch();
@@ -32,6 +33,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const isOpen = Boolean(anchorEl);
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
+
+  const signout = () => {
+    setAnchorEl(null);
+    dispatch(logout());
+  };
 
   return (
     <AppBar
@@ -105,7 +111,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   fontSize="0.75rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
-                  {user.occupation}
+                  {user.department}
                 </Typography>
               </Box>
               <ArrowDropDownOutlined
@@ -118,7 +124,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={signout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

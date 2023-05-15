@@ -1,8 +1,8 @@
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { themeSettings } from "theme";
 import Layout from "scenes/layout";
 import Dashboard from "scenes/dashboard";
@@ -17,34 +17,43 @@ import Admin from "scenes/admin";
 import Performance from "scenes/performance";
 import PowerBiReport from "scenes/powerbi";
 import Purchases from "scenes/purchases";
+import Login from "scenes/login";
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+
+  const profile = useState(JSON.parse(localStorage.getItem("profile")));
+  const user = profile[0]?.data?.result;
+
+  // console.log(user);
+
   return (
     <div className="app">
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/power-bi-report" element={<PowerBiReport />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/customers" element={<Customers />} />
-              <Route path="/purchases" element={<Purchases />} />
-              <Route path="/geography" element={<Geography />} />
-              <Route path="/profit" element={<Overview />} />
-              <Route path="/daily" element={<Daily />} />
-              <Route path="/monthly" element={<Monthly />} />
-              <Route path="/breakdown" element={<Breakdown />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/performance" element={<Performance />} />
-            </Route>
-          </Routes>
-        </ThemeProvider>
-      </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={user ? (
+              <Navigate to="/dashboard" replace />
+            ) : <Navigate to="/login" replace />
+            } />
+            <Route path="/dashboard" element={user ? <Dashboard /> : <Navigate to="/login" replace />} />
+            <Route path="/power-bi-report" element={user ? <PowerBiReport /> : <Navigate to="/login" replace />} />
+            <Route path="/products" element={user ? <Products /> : <Navigate to="/login" replace />} />
+            <Route path="/customers" element={user ? <Customers /> : <Navigate to="/login" replace />} />
+            <Route path="/purchases" element={user ? <Purchases /> : <Navigate to="/login" replace />} />
+            <Route path="/geography" element={user ? <Geography /> : <Navigate to="/login" replace />} />
+            <Route path="/profit" element={user ? <Overview /> : <Navigate to="/login" replace />} />
+            <Route path="/daily" element={user ? <Daily /> : <Navigate to="/login" replace />} />
+            <Route path="/monthly" element={user ? <Monthly /> : <Navigate to="/login" replace />} />
+            <Route path="/breakdown" element={user ? <Breakdown /> : <Navigate to="/login" replace />} />
+            <Route path="/admin" element={user ? <Admin /> : <Navigate to="/login" replace />} />
+            <Route path="/performance" element={user ? <Performance /> : <Navigate to="/login" replace />} />
+          </Route>
+          <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />
+        </Routes>
+      </ThemeProvider>
     </div>
   );
 }

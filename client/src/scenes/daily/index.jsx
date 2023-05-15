@@ -16,7 +16,7 @@ const Daily = () => {
     if (!data) return [];
 
     const dailyData = data[0]?.dailyData;
-    console.log("dailyData", dailyData);
+    // console.log("dailyData", dailyData);
     const totalSalesLine = {
       id: "Sales",
       color: theme.palette.secondary.main,

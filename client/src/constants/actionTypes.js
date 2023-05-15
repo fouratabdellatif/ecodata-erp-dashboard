@@ -1,0 +1,10 @@
+export const AUTH = "AUTH";
+export const AUTHERROR = "AUTHERROR";
+export const LOGOUT = "LOGOUT";
+export const CREATE = "CREATE";
+export const FETCH_ALL_ADMINS = "FETCH_ALL_ADMINS";
+export const FETCH_ALL_KPIS = "FETCH_ALL_KPIS";
+export const FETCH_ALL_FACT_TABLE = "FETCH_ALL_FACT_TABLE";
+export const FETCH_ALL_PRODUITS = "FETCH_ALL_PRODUITS";
+export const FETCH_ALL_CUSTOMERS = "FETCH_ALL_CUSTOMERS";
+export const USER_LOADED = "USER_LOADED";

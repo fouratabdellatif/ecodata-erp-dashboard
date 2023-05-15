@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import {
@@ -38,12 +38,6 @@ const Dashboard = () => {
     totalExpenses = kpiData?.data[0]?.totalExpenses;
     totalProfit = kpiData?.data[0]?.totalProfit;
   }
-
-  useEffect(() => {
-    if (kpiData) {
-      console.log(kpiData);
-    }
-  });
 
   const shipCitiesColumns = [
     {

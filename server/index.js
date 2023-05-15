@@ -9,9 +9,11 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
+import userRoutes from "./routes/user.js";
+import adminsRoutes from "./routes/admins.js";
+import bcrypt from "bcryptjs";
 
 // data imports
-import User from "./models/User.js";
 import Product from "./models/Product.js";
 import ProductStat from "./models/ProductStat.js";
 import Transaction from "./models/Transaction.js";
@@ -25,6 +27,7 @@ import {
   dataOverallStat,
   dataAffiliateStat,
 } from "./data/index.js";
+import User from "./models/User.js";
 import { dataCategory } from "./data/category.js"
 import { dataState } from "./data/state.js";
 import { dataStatus } from "./data/status.js";
@@ -45,6 +48,7 @@ import FactTable from "./models/FactTable.js";
 import { dataFactTable } from "./data/fact_table.js";
 import Kpi from "./models/Kpi.js";
 import { dataKPI } from "./data/kpi.js";
+import { ROLES } from "./models/Role.js";
 
 /* CONFIGURATION */
 dotenv.config();
@@ -62,6 +66,8 @@ app.use("/client", clientRoutes);
 app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
+app.use("/admins", userRoutes);
+app.use("/superadmin/admins", adminsRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 9000;
@@ -71,36 +77,40 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => {
+      console.log(`Server Port: ${PORT}`);
 
-    /* ONLY ADD DATA ONE TIME */
-    // AffiliateStat.insertMany(dataAffiliateStat);
-    // OverallStat.insertMany(dataOverallStat);
-    // Product.insertMany(dataProduct);
-    // ProductStat.insertMany(dataProductStat);
-    // Transaction.insertMany(dataTransaction);
-    // User.insertMany(dataUser);
+      // initialCreateSuperAdmin();
+
+      /* ONLY ADD DATA ONE TIME */
+      // AffiliateStat.insertMany(dataAffiliateStat);
+      // OverallStat.insertMany(dataOverallStat);
+      // Product.insertMany(dataProduct);
+      // ProductStat.insertMany(dataProductStat);
+      // Transaction.insertMany(dataTransaction);
+      // User.insertMany(dataUser);
 
 
 
-    // Category.insertMany(dataCategory);
-    // State.insertMany(dataState);
-    // Status.insertMany(dataStatus);
-    // Fulfilment.insertMany(dataFulfilment);
-    // Customer.insertMany(dataCustomer);
-    // Date.insertMany(dataDate);
-    // seedProducts();
-    // seedCities();
-    // seedFactTable();
-    // Kpi.insertMany(dataKPI);
-  //   City.updateMany({}, { $set: { country: 'IN' }})
-  // .then((result) => {
-  //   console.log(`${result.nModified} cities updated`);
-  // })
-  // .catch((error) => {
-  //   console.error(error);
-  // });
+      // Category.insertMany(dataCategory);
+      // State.insertMany(dataState);
+      // Status.insertMany(dataStatus);
+      // Fulfilment.insertMany(dataFulfilment);
+      // Customer.insertMany(dataCustomer);
+      // Date.insertMany(dataDate);
+      // seedProducts();
+      // seedCities();
+      // seedFactTable();
+      // Kpi.insertMany(dataKPI);
+      //   City.updateMany({}, { $set: { country: 'IN' }})
+      // .then((result) => {
+      //   console.log(`${result.nModified} cities updated`);
+      // })
+      // .catch((error) => {
+      //   console.error(error);
+      // });
 
+    })
   })
   .catch((error) => console.log(`${error} did not connect`));
 
@@ -217,3 +227,32 @@ async function seedFactTable() {
   }
 }
 
+const initialCreateSuperAdmin = async () => {
+  try {
+    await User.estimatedDocumentCount(async (err, count) => {
+      try {
+        if (!err && count === 0) {
+          await new User({
+            firstname: "Fourat",
+            lastname: "Abdellatif",
+            email: "fourat.abdellatif@esprit.tn",
+            password: await bcrypt.hash("superAdmin2023", 12),
+            department: "Administration",
+            name: "Fourat Abdellatif",
+            role: ROLES[2],
+          }).save((err) => {
+            if (err) {
+              console.log("error", err);
+            }
+
+            console.log("SuperAdmin is created");
+          });
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
