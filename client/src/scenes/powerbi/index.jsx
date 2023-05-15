@@ -2,11 +2,7 @@ import React from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import {
-  DownloadOutlined,
-} from "@mui/icons-material";
-import {
   Box,
-  Button,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -22,7 +18,7 @@ const PowerBiReport = () => {
       <FlexBetween>
         <Header title="Power BI Report" subtitle="Welcome to your Report" />
 
-        <Box width="25%" marginRight="0" marginLeft="auto">
+        {/* <Box width="25%" marginRight="0" marginLeft="auto">
           <Button
             sx={{
               backgroundColor: theme.palette.secondary.light,
@@ -35,7 +31,7 @@ const PowerBiReport = () => {
             <DownloadOutlined sx={{ mr: "10px" }} />
             Download Reports
           </Button>
-        </Box>
+        </Box> */}
       </FlexBetween>
 
       <Box

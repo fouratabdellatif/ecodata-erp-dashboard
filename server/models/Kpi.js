@@ -8,6 +8,10 @@ const KpiSchema = new mongoose.Schema(
     totalProfit: Number,
     totalCustomers: Number,
     ratingAvg: Number,
+    topTenShipCities: {
+      type: Map,
+      of: String,
+    },
     salesAvgByFullfilment: {
       type: Map,
       of: Number,
@@ -28,6 +32,12 @@ const KpiSchema = new mongoose.Schema(
       {
         month: String,
         totalProfit: Number,
+      },
+    ],
+    dailyData: [
+      {
+        date: String,
+        totalSales: Number,
       },
     ],
   },

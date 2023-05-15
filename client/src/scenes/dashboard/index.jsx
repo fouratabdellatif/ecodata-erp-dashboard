@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
 import {
-  DownloadOutlined,
   People,
   PointOfSale,
   AttachMoney,
@@ -10,7 +9,6 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
-  Button,
   Typography,
   useTheme,
   useMediaQuery
@@ -18,13 +16,13 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "components/BreakdownChart";
 import OverviewChart from "components/OverviewChart";
-import { useGetDashboardQuery, useGetKpisQuery } from "state/api";
+import { useGetKpisQuery } from "state/api";
 import StatBox from "components/StatBox";
+import { topTenColors, topTenShipCities } from "state/topTen";
 
 const Dashboard = () => {
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const dashboardData = useGetDashboardQuery();
   // const customersData = useGetCustomersQuery();
   const kpiData = useGetKpisQuery();
   // const purchasesData = useGetPurchasesQuery();
@@ -47,34 +45,29 @@ const Dashboard = () => {
     }
   });
 
-  const columns = [
+  const shipCitiesColumns = [
     {
-      field: "_id",
-      headerName: "ID",
+      field: "city",
+      headerName: "Ship City",
       flex: 1
     },
     {
-      field: "userId",
-      headerName: "User ID",
+      field: "purchases",
+      headerName: "Purchases",
+      flex: 1
+    }
+  ];
+
+  const colorsColumns = [
+    {
+      field: "color",
+      headerName: "Color",
       flex: 1
     },
     {
-      field: "createdAt",
-      headerName: "CreatedAt",
+      field: "purchases",
+      headerName: "Purchases",
       flex: 1
-    },
-    {
-      field: "products",
-      headerName: "# of Products",
-      flex: 0.5,
-      sortable: false,
-      renderCell: (params) => params.value.length
-    },
-    {
-      field: "cost",
-      headerName: "Cost",
-      flex: 1,
-      renderCell: (params) => `$${Number(params.value).toFixed(2)}`
     }
   ];
 
@@ -83,7 +76,7 @@ const Dashboard = () => {
       <FlexBetween>
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
 
-        <Box>
+        {/* <Box>
           <Button
             sx={{
               backgroundColor: theme.palette.secondary.light,
@@ -96,7 +89,7 @@ const Dashboard = () => {
             <DownloadOutlined sx={{ mr: "10px" }} />
             Download Reports
           </Button>
-        </Box>
+        </Box> */}
       </FlexBetween>
 
       <Box
@@ -161,8 +154,8 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
-          gridRow="span 3"
+          gridColumn="span 4"
+          gridRow="span 2"
           sx={{
             "& .MuiDataGrid-root": {
               border: "none",
@@ -190,15 +183,51 @@ const Dashboard = () => {
           }}
         >
           <DataGrid
-            loading={!dashboardData.data}
-            getRowId={(row) => row._id}
-            rows={(dashboardData && dashboardData?.data?.transactions) || []}
-            columns={columns}
+            loading={!topTenShipCities}
+            getRowId={(row) => row.city}
+            rows={(topTenShipCities && topTenShipCities) || []}
+            columns={shipCitiesColumns}
           />
         </Box>
         <Box
           gridColumn="span 4"
-          gridRow="span 3"
+          gridRow="span 2"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+              borderRadius: "5rem"
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none"
+            },
+            "& .MuiDataGrid-columnHeaders": {
+              backgroundColor: theme.palette.background.alt,
+              color: theme.palette.secondary[100],
+              borderBottom: "none"
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: theme.palette.background.alt
+            },
+            "& .MuiDataGrid-footerContainer": {
+              backgroundColor: theme.palette.background.alt,
+              color: theme.palette.secondary[100],
+              borderTop: "none"
+            },
+            "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
+              color: `${theme.palette.secondary[200]} !important`
+            }
+          }}
+        >
+          <DataGrid
+            loading={!topTenColors}
+            getRowId={(row) => row.color}
+            rows={(topTenColors && topTenColors) || []}
+            columns={colorsColumns}
+          />
+        </Box>
+        <Box
+          gridColumn="span 4"
+          gridRow="span 2"
           backgroundColor={theme.palette.background.alt}
           p="1.5rem"
           borderRadius="0.55rem"

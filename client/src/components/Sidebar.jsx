@@ -23,10 +23,10 @@ import {
   // PublicOutlined,
   PointOfSaleOutlined,
   TodayOutlined,
-  CalendarMonthOutlined,
+  // CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
-  TrendingUpOutlined,
-  PieChartOutlined,
+  // TrendingUpOutlined,
+  // PieChartOutlined,
   Assessment
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
@@ -69,21 +69,21 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Overview",
+    text: "Profit",
     icon: <PointOfSaleOutlined />,
   },
   {
-    text: "Daily",
+    text: "Daily Sales",
     icon: <TodayOutlined />,
   },
-  {
-    text: "Monthly",
-    icon: <CalendarMonthOutlined />,
-  },
-  {
-    text: "Breakdown",
-    icon: <PieChartOutlined />,
-  },
+  // {
+  //   text: "Monthly",
+  //   icon: <CalendarMonthOutlined />,
+  // },
+  // {
+  //   text: "Breakdown",
+  //   icon: <PieChartOutlined />,
+  // },
   {
     text: "Management",
     icon: null,
@@ -92,10 +92,10 @@ const navItems = [
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
   },
-  {
-    text: "Performance",
-    icon: <TrendingUpOutlined />,
-  },
+  // {
+  //   text: "Performance",
+  //   icon: <TrendingUpOutlined />,
+  // },
 ];
 
 const Sidebar = ({
@@ -159,7 +159,15 @@ const Sidebar = ({
                     </Typography>
                   );
                 }
-                const lcText = text === "Power BI Report" ? "power-bi-report" : text.toLowerCase();
+                let lcText;
+                if (text === "Power BI Report") {
+                  lcText = "power-bi-report";
+                } else if (text === "Daily Sales") {
+                  lcText = "daily";
+                } else {
+                  lcText = text.toLowerCase();
+                }
+
 
                 return (
                   <ListItem key={text} disablePadding>
