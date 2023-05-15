@@ -233,13 +233,13 @@ const initialCreateSuperAdmin = async () => {
       try {
         if (!err && count === 0) {
           await new User({
-            firstname: "Fourat",
-            lastname: "Abdellatif",
+            firstName: "Fourat",
+            lastName: "Abdellatif",
             email: "fourat.abdellatif@esprit.tn",
             password: await bcrypt.hash("superAdmin2023", 12),
             department: "Administration",
             name: "Fourat Abdellatif",
-            role: ROLES[2],
+            role: ROLES[0],
           }).save((err) => {
             if (err) {
               console.log("error", err);
