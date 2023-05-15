@@ -18,6 +18,7 @@ import Performance from "scenes/performance";
 import PowerBiReport from "scenes/powerbi";
 import Purchases from "scenes/purchases";
 import Login from "scenes/login";
+import Forms from "scenes/forms";
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -49,6 +50,7 @@ function App() {
             <Route path="/monthly" element={user ? <Monthly /> : <Navigate to="/login" replace />} />
             <Route path="/breakdown" element={user ? <Breakdown /> : <Navigate to="/login" replace />} />
             <Route path="/admin" element={user ? <Admin /> : <Navigate to="/login" replace />} />
+            <Route path="/forms" element={user ? <Forms /> : <Navigate to="/login" replace />} />
             <Route path="/performance" element={user ? <Performance /> : <Navigate to="/login" replace />} />
           </Route>
           <Route path="/login" element={user ? <Navigate to="/" replace /> : <Login />} />

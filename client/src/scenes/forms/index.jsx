@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
-import { useGetAdminsQuery } from "state/api";
+import { useGetFormsQuery } from "state/api";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "components/Header";
 import CustomColumnMenu from "components/DataGridCustomColumnMenu";
 
-const Admin = () => {
+const Forms = () => {
   const theme = useTheme();
-  const { data, isLoading } = useGetAdminsQuery();
+  const { data, isLoading } = useGetFormsQuery();
 
   const columns = [
     {
@@ -21,27 +21,54 @@ const Admin = () => {
       flex: 1,
     },
     {
-      field: "phoneNumber",
-      headerName: "Phone Number",
-      flex: 0.5,
-      renderCell: (params) => {
-        return params.value.replace(/^(\d{3})(\d{3})(\d{4})/, "($1)$2-$3");
-      },
-    },
-    {
-      field: "country",
-      headerName: "Country",
-      flex: 0.4,
-    },
-    {
-      field: "occupation",
-      headerName: "Occupation",
+      field: "question1",
+      headerName: "Question 1",
       flex: 1,
     },
     {
-      field: "role",
-      headerName: "Role",
-      flex: 0.5,
+      field: "question2",
+      headerName: "Question 2",
+      flex: 1,
+    },
+    {
+      field: "question3",
+      headerName: "Question 3",
+      flex: 1,
+    },
+    {
+      field: "question4",
+      headerName: "Question 4",
+      flex: 1,
+    },
+    {
+      field: "question5",
+      headerName: "Question 5",
+      flex: 1,
+    },
+    {
+      field: "question6",
+      headerName: "Question 6",
+      flex: 1,
+    },
+    {
+      field: "question7",
+      headerName: "Question 7",
+      flex: 1,
+    },
+    {
+      field: "question8",
+      headerName: "Question 8",
+      flex: 1,
+    },
+    {
+      field: "question9",
+      headerName: "Question 9",
+      flex: 1,
+    },
+    {
+      field: "question10",
+      headerName: "Question 10",
+      flex: 1,
     },
   ];
 
@@ -90,4 +117,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Forms;

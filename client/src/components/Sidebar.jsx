@@ -27,7 +27,8 @@ import {
   AdminPanelSettingsOutlined,
   // TrendingUpOutlined,
   // PieChartOutlined,
-  Assessment
+  Assessment,
+  FormatListBulleted
 } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -91,6 +92,10 @@ const navItems = [
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+  },
+  {
+    text: "Forms",
+    icon: <FormatListBulleted />,
   },
   // {
   //   text: "Performance",

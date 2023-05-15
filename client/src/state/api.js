@@ -15,6 +15,7 @@ export const api = createApi({
     "CitiesGeo",
     "Sales",
     "Admins",
+    "Forms",
     "Performance",
     "Dashboard",
   ],
@@ -67,6 +68,10 @@ export const api = createApi({
       query: () => "management/admins",
       providesTags: ["Admins"],
     }),
+    getForms: build.query({
+      query: () => "management/forms",
+      providesTags: ["Forms"],
+    }),
     getUserPerformance: build.query({
       query: (id) => `management/performance/${id}`,
       providesTags: ["Performance"],
@@ -90,6 +95,7 @@ export const {
   useGetCitiesGeoQuery,
   useGetSalesQuery,
   useGetAdminsQuery,
+  useGetFormsQuery,
   useGetUserPerformanceQuery,
   useGetDashboardQuery,
 } = api;
