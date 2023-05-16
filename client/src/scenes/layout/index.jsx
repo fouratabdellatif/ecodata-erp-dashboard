@@ -13,7 +13,9 @@ const Layout = () => {
   // const { data } = useGetUserQuery("test");
   
   const profile = useState(JSON.parse(localStorage.getItem("profile")));
-  const user = profile[0]?.result;
+  const user = profile[0]?.data?.result;
+
+  console.log(user);
 
   return (
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
