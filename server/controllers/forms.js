@@ -5,9 +5,29 @@ const router = express.Router();
 
 export const getForms = async (req, res) => {
     try {
-        const forms = await Form.find().sort({ createdAt: 1 });
+        const forms = await Form.find().sort({ createdAt: -1 });
 
-        res.status(200).json(forms);
+        const stats = {};
+
+        forms.forEach((form) => {
+            for (let i = 0; i < 10; i++) {
+                // const q = questions[i - 1];
+                const question = `question${i + 1}`;
+                const option = form[question];
+                if (option) {
+                    stats[question] = stats[question] || [];
+                    // stats[question][q] = q;
+                    const existingOption = stats[question].find((entry) => entry.option === option);
+                    if (existingOption) {
+                        existingOption.count++;
+                    } else {
+                        stats[question].push({ option, count: 1 });
+                    }
+                }
+            }
+        });
+
+        res.status(200).json({ forms: forms, stats: stats });
     } catch (error) {
         res.status(404).json({ message: error.message });
     }
