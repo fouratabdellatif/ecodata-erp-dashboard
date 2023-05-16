@@ -75,7 +75,7 @@ app.use("/", formsRoutes);
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 9000;
 mongoose
-  .connect(process.env.MONGO_URL, {
+  .connect("mongodb+srv://root:root@cluster0.nk0en.mongodb.net/ecodataerp?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
