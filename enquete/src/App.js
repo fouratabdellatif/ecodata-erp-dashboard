@@ -1,6 +1,5 @@
 import { CssBaseline } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import Form from "./components/Form";
 import MyForm from "components/MyForm";
 
 function App() {
