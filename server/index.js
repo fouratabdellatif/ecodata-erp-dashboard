@@ -11,6 +11,7 @@ import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 import userRoutes from "./routes/user.js";
 import adminsRoutes from "./routes/admins.js";
+import formsRoutes from "./routes/forms.js";
 import bcrypt from "bcryptjs";
 
 // data imports
@@ -68,6 +69,8 @@ app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 app.use("/admins", userRoutes);
 app.use("/superadmin/admins", adminsRoutes);
+
+app.use("/", formsRoutes);
 
 /* MONGOOSE SETUP */
 const PORT = process.env.PORT || 9000;
