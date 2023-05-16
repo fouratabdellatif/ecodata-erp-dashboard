@@ -135,7 +135,7 @@ const Forms = () => {
             textDecoration: "none",
             color: "#0a2c5b"
           }}
-          href="https://eco-data-form.netlify.app/"
+          href="https://ecodata-erp-form.vercel.app/"
           target="_blank"
           rel="noreferrer"
         >
