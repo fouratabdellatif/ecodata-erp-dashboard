@@ -1,8 +1,7 @@
 import axios from "axios";
 // import jwt from "jsonwebtoken";
 
-// const API = axios.create({ baseURL: "http://localhost:9000" });
-// // const API = axios.create({ baseURL: "https://ghostprod-server.cyclic.app" });
+// const API = axios.create({ baseURL: "https://ecodata-server.onrender.com" });
 // API.interceptors.request.use((req) => {
 //     if (localStorage.getItem("profile")) {
 //         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`;
@@ -13,7 +12,7 @@ import axios from "axios";
 
 // export var decoded = jwt.decode(JSON.parse(localStorage.getItem("profile"))?.token);
 
-const API = axios.create({ baseURL: "http://localhost:9000" });
+const API = axios.create({ baseURL: "https://ecodata-server.onrender.com" });
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("profile")) {
         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("profile")).token}`;
