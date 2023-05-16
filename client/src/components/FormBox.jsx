@@ -43,7 +43,7 @@ const FormBox = ({ title, values, increase, icon, description }) => {
             <div style={{
               marginLeft: '20px',
               marginRight: 0
-            }}>{(item.count / data?.forms?.length) * 100} %</div>
+            }}>{((item.count / data?.forms?.length) * 100).toFixed(0)} %</div>
           </div>
         </Typography>
       ))}

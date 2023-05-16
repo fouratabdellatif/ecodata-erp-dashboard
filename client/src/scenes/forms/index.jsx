@@ -154,7 +154,7 @@ const Forms = () => {
       >
         <StatBox
           title={five}
-          value={data && ` ${(occFive / (5 * data?.forms?.length)) * 100}% (${occFive} Answers)`}
+          value={data && ` ${((occFive / (5 * data?.forms?.length)) * 100).toFixed(0)}% (${occFive} Answers)`}
           icon={
             <Looks5
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -163,7 +163,7 @@ const Forms = () => {
         />
         <StatBox
           title={four}
-          value={data && ` ${(occFour / (5 * data?.forms?.length)) * 100}% (${occFour} Answers)`}
+          value={data && ` ${((occFour / (5 * data?.forms?.length)) * 100).toFixed(0)}% (${occFour} Answers)`}
           icon={
             <Looks4
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -172,7 +172,7 @@ const Forms = () => {
         />
         <StatBox
           title={three}
-          value={data && ` ${(occThree / (5 * data?.forms?.length)) * 100}% (${occThree} Answers)`}
+          value={data && ` ${((occThree / (5 * data?.forms?.length)) * 100).toFixed(0)}% (${occThree} Answers)`}
           icon={
             <Looks3
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -181,7 +181,7 @@ const Forms = () => {
         />
         <StatBox
           title={two}
-          value={data && ` ${(occTwo / (5 * data?.forms?.length)) * 100}% (${occTwo} Answers)`}
+          value={data && ` ${((occTwo / (5 * data?.forms?.length)) * 100).toFixed(0)}% (${occTwo} Answers)`}
           icon={
             <LooksTwo
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -190,7 +190,7 @@ const Forms = () => {
         />
         <StatBox
           title={one}
-          value={data && ` ${(occOne / (5 * data?.forms?.length)) * 100}% (${occOne} Answers)`}
+          value={data && ` ${((occOne / (5 * data?.forms?.length)) * 100).toFixed(0)}% (${occOne} Answers)`}
           icon={
             <LooksOne
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
