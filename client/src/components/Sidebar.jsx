@@ -19,7 +19,7 @@ import {
   HomeOutlined,
   ShoppingCartOutlined,
   Groups2Outlined,
-  ReceiptLongOutlined,
+  // ReceiptLongOutlined,
   // PublicOutlined,
   PointOfSaleOutlined,
   TodayOutlined,
@@ -57,10 +57,10 @@ const navItems = [
     text: "Customers",
     icon: <Groups2Outlined />,
   },
-  {
-    text: "Purchases",
-    icon: <ReceiptLongOutlined />,
-  },
+  // {
+  //   text: "Purchases",
+  //   icon: <ReceiptLongOutlined />,
+  // },
   // {
   //   text: "Geography",
   //   icon: <PublicOutlined />,
