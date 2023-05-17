@@ -1,11 +1,7 @@
 import React from "react";
 import FlexBetween from "components/FlexBetween";
 import Header from "components/Header";
-import {
-  Box,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 // import { PowerBIEmbed } from 'powerbi-client-react';
 // import { models } from 'powerbi-client';
 
@@ -41,7 +37,7 @@ const PowerBiReport = () => {
         gridAutoRows="160px"
         gap="20px"
         sx={{
-          "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" },
+          "& > div": { gridColumn: isNonMediumScreens ? undefined : "span 12" }
         }}
       >
         <Box
@@ -53,7 +49,7 @@ const PowerBiReport = () => {
           width="1180px"
           height="541.25px"
         >
-        {/* <PowerBIEmbed
+          {/* <PowerBIEmbed
           embedConfig={{
             type: 'report',   // Supported types: report, dashboard, tile, visual and qna
             id: '6cc1e0dd-5af9-48f5-9a13-fbb3167b736e',
@@ -84,10 +80,33 @@ const PowerBiReport = () => {
             window.report = embeddedReport;
           }}
         /> */}
-        <iframe style={{
-          margin: 'auto',
-          display: 'block'
-        }} title="projetBI" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=6cc1e0dd-5af9-48f5-9a13-fbb3167b736e&autoAuth=true&ctid=604f1a96-cbe8-43f8-abbf-f8eaf5d85730&pageName=Top%205" frameborder="0" allowFullScreen="true"></iframe>
+          {localStorage.getItem("mode") === "light" ? (
+            <iframe
+              style={{
+                margin: "auto",
+                display: "block"
+              }}
+              title="projetBI"
+              width="1140"
+              height="541.25"
+              src="https://app.powerbi.com/reportEmbed?reportId=6cc1e0dd-5af9-48f5-9a13-fbb3167b736e&autoAuth=true&ctid=604f1a96-cbe8-43f8-abbf-f8eaf5d85730&pageName=Top%205"
+              frameborder="0"
+              allowFullScreen="true"
+            ></iframe>
+          ) : (
+            <iframe
+              style={{
+                margin: "auto",
+                display: "block"
+              }}
+              title="projetBIDark"
+              width="1140"
+              height="541.25"
+              src="https://app.powerbi.com/reportEmbed?reportId=78612903-8470-497b-a1b5-89c9be87d479&autoAuth=true&ctid=604f1a96-cbe8-43f8-abbf-f8eaf5d85730&pageName=Top%205"
+              frameborder="0"
+              allowFullScreen="true"
+            ></iframe>
+          )}
         </Box>
       </Box>
     </Box>
